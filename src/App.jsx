@@ -6,9 +6,11 @@ import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/cart/checkout.component";
 import { useContext } from "react";
 import { UserContext } from "./contexts/user.context";
+import PaymentSuccess from "./routes/payment-success/payment-success.component";
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
   return (
     <Routes>
       <Route path="/" element={<Nav />}>
@@ -19,6 +21,7 @@ const App = () => {
         />
         <Route path="shop/*" element={<Shop />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="success" element={<PaymentSuccess />} />
       </Route>
     </Routes>
   );

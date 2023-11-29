@@ -1,26 +1,27 @@
 /* eslint-disable no-undef */
 require("dotenv").config();
 
-const stripe = require("stripe")(process.env.STRIP_SK);
+const stripe = require("stripe")(process.env.STRIPE_SK);
 
-exports.handler = async (e) => {
+exports.handler = async (event) => {
   try {
-    const { amount } = JSON.parse(e.body);
+    const { amount } = JSON.parse(event.body);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      currency: "USD",
+      currency: "usd",
       payment_method_types: ["card"],
     });
 
     return {
-      status: 200,
+      statusCode: 200,
       body: JSON.stringify({ paymentIntent }),
     };
   } catch (error) {
-    console.log(error);
+    console.log({ error });
+
     return {
-      status: 400,
+      statusCode: 400,
       body: JSON.stringify({ error }),
     };
   }
